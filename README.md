@@ -139,9 +139,13 @@ BibLatex\cite{knuth92}是管理文献的一个工具。
 ## Latex
 
 ### 中文支持
+重点1: 文件名和路径都必须使用中文, 防止乱码问题.
+
+重点2: xelatex编译时支持中文, 只需要下面这一行代码即可
 ```latex
 \documentclass[a4paper, UTF8]{ctexart}
 ```
+而pdflatex则多半不行, 考虑使用CJK宏或者CTEX宏
 
 ### 排版
 
