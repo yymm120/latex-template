@@ -1,0 +1,174 @@
+{
+//------------------------------LaTeX 配置----------------------------------
+    "workbench.colorTheme": "Default Dark Modern",
+    "editor.accessibilityPageSize": 15,
+//------------------------------LaTeX 配置----------------------------------
+    //输出文件目录; 输出pdf在这里
+    "latex-workshop.latex.outDir": ".",
+    // 设置是否自动编译
+    "latex-workshop.latex.autoBuild.run":"onSave",
+    //右键菜单
+    "latex-workshop.showContextMenu":true,
+    //从使用的包中自动补全命令和环境
+    "latex-workshop.intellisense.package.enabled": true,
+    //编译出错时设置是否弹出气泡设置
+    "latex-workshop.message.error.show": true,
+    "latex-workshop.message.warning.show": true,
+    // 编译工具和命令
+    "latex-workshop.latex.tools": [
+        {
+            "name": "xelatex",
+            //这里修改临时文件输出在build文件夹
+            // "command": "xelatex -output-directory=build",
+            "command": "xelatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                //含有中文路径时用这个；%DOC则是全路径，则路径最好不含中文
+                "%DOCFILE%"
+            ]
+        },
+        {
+            "name": "pdflatex",
+            // "command": "pdflatex -output-directory=build",
+            "command": "pdflatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOCFILE%"
+            ]
+        },
+        {
+            "name": "latexmk",
+            // "command": "latexmk -output-directory=build",
+            "command": "latexmk",
+            "args": [
+                "-xelatex",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                // "-outdir=%OUTDIR%",
+                "%DOCFILE%"
+            ]
+        },
+        {   
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
+            ]
+        },
+        {
+            // 增加一个biber，搭配xelatex使用；临时文件在build文件夹
+            "name": "biber",
+            "command": "biber",
+            "args": [
+                "%DOCFILE%"
+            ]
+        }
+
+    ],
+    // 用于配置编译链
+    "latex-workshop.latex.recipes": [
+        // 实测work；xelatex需要搭配biber
+        {
+            "name": "xelatex -> biber -> xelatex*2",
+            "tools": [
+                "xelatex",
+                "biber",
+                "xelatex",
+                "xelatex"
+            ]
+        },
+        //实测不work; xelatex需要用biber
+        // {
+        //     "name": "xelatex -> bibtex -> xelatex*2",
+        //     "tools": [
+        //         "xelatex",
+        //         "bibtex",
+        //         "xelatex",
+        //         "xelatex"
+        //     ]
+        // }
+        {
+            "name": "pdflatex -> biber -> pdflatex*2",
+            "tools": [
+                "pdflatex",
+                "biber",
+                "pdflatex",
+                "pdflatex"
+            ]
+        },
+        {
+            "name": "XeLaTeX",
+            "tools": [
+                "xelatex"
+            ]
+        },
+        {
+            "name": "PDFLaTeX",
+            "tools": [
+                "pdflatex"
+            ]
+        },
+        {
+            "name": "BibTeX",
+            "tools": [
+                "bibtex"
+            ]
+        },
+        {
+            "name": "Biber",
+            "tools": [
+                "biber"
+            ]
+        },
+        {
+            "name": "LaTeXmk",
+            "tools": [
+                "latexmk"
+            ]
+        }
+    ],
+    //文件清理。此属性必须是字符串数组
+    "latex-workshop.latex.clean.fileTypes": [
+        "*.aux",
+        "*.bbl",
+        "*.blg",
+        "*.idx",
+        "*.ind",
+        "*.lof",
+        "*.lot",
+        "*.out",
+        "*.toc",
+        "*.acn",
+        "*.acr",
+        "*.alg",
+        "*.glg",
+        "*.glo",
+        "*.gls",
+        "*.ist",
+        "*.fls",
+        "*.log",
+        "*.fdb_latexmk"
+    ],
+    //设置为onFaild 在构建失败后清除辅助文件
+    // "latex-workshop.latex.autoClean.run": "onFailed",
+    "latex-workshop.latex.autoClean.run": "never",
+    // "triggerTaskOnSave.tasks": {
+    //     "update pdf": [
+    //         "*.tex"
+    //     ]
+    // },
+    // 使用上次的recipe编译组合
+    "latex-workshop.latex.recipe.default": "lastUsed",
+    // 用于反向同步的内部查看器的键绑定。ctrl/cmd +点击(默认)或双击
+    "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+    "editor.wordWrap": "on",
+    "latex-workshop.view.pdf.viewer": "tab",
+    "extensions.ignoreRecommendations": true,
+    "latex-workshop.intellisense.citation.backend": "biblatex"
+}
