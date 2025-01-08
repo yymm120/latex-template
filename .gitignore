@@ -5,3 +5,5 @@
 **/*.out
 **/*.synctex.gz
 **/*.toc
+**/*.fdb_latexmk
+**/*.fls
